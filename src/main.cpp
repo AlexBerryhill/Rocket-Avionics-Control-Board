@@ -1,7 +1,9 @@
 #include <Arduino.h>
+#include "stabalization.h";
+
 
 // put function declarations here:
-int myFunction(int, int);
+void calibration();
 
 void setup() {
   // put your setup code here, to run once:
@@ -9,10 +11,9 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  // Nothing Here
 }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+void calibration() {
+  // code to calibrate
 }
