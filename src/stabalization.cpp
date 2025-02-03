@@ -5,7 +5,7 @@
  * @brief Calls the TaskPrintCore1 function on the specified core
  * @param core: The core number to run the task on
  ******************************************/
-void start(int core){ // remove parameter on arduino because of only one addressable core (there are two but it is hard to call)
+void startStabalization(int core){ // remove parameter on arduino because of only one addressable core (there are two but it is hard to call)
   xTaskPinnedToCore( //xTaskCreate on Arduino
       TaskPrintCore1,    // Task function
       "PrintCore1",      // Task name
@@ -17,8 +17,31 @@ void start(int core){ // remove parameter on arduino because of only one address
   ); 
 }
 
+void TaskPrintCore1(void *pvParameters) {
+  for(;;) {
+    // code to stabilize
+    // stabalization();
+    
+    Serial.println("Task 1 running on core " + xPortGetCoreID());
+    delay(1000);
+  }
 
-// put function definitions here:
+  vTaskDelete(NULL);
+}
+
+/******************************************
+ * stabalization
+ * @brief Stabalizes the robot
+ ******************************************/
+void stabalization() {
+  // code to stabilize
+}
+
+/******************************************
+ * moveLeft
+ * @brief Moves the robot left by the specified number of inches
+ * @param inches: The number of inches to move left
+ ******************************************/
 void moveLeft(int inches) {
   // code to move left
 }

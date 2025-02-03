@@ -3,17 +3,17 @@
 
 
 // put function declarations here:
-void calibration();
+// void calibration();
 
 void setup() {
   // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  int result = calibration();
 }
 
 void loop() {
   // Nothing Here
 }
 
-void calibration() {
-  // code to calibrate
-}
+// void calibration() {
+//   // code to calibrate
+// }
