@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.nupkg": "bat",
+        "deque": "cpp",
+        "string": "cpp",
+        "vector": "cpp"
+    }
+}

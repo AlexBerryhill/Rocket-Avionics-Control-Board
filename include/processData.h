@@ -1,13 +1,14 @@
 #ifndef PROCESSDATA_H
 #define PROCESSDATA_H
+#include <Arduino.h>
+#include <cstddef>
 
-class processData {
+class ProcessData {
     public:
-        startProcessing(int core);  
+        void start(int core);  
     private:
-    /* data */
-
-    
+        static void processData(void *pvParameters);
+    /* data */   
 };
 
 // processData::processData(/* args */)
@@ -17,3 +18,5 @@ class processData {
 // processData::~processData()
 // {
 // }
+
+#endif
