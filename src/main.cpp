@@ -20,8 +20,9 @@ void setup() {
 }
 
 void loop() {
-  Serial.println("Looping pio...");
+  Serial.println("Looping pio 2...");
   // vTaskDelay(1000 / portTICK_PERIOD_MS);
+  delay(1000);
   // Nothing Here
 }
 
