@@ -3265,126 +3265,6 @@
 				)
 			)
 		)
-		(symbol "power:+BATT"
-			(power)
-			(pin_numbers hide)
-			(pin_names
-				(offset 0) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "+BATT"
-				(at 0 3.556 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power symbol creates a global label with name \"+BATT\""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power battery"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "+BATT_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "+BATT_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "power:GND"
 			(power)
 			(pin_numbers hide)
@@ -3650,12 +3530,6 @@
 		(color 0 0 0 0)
 		(uuid "c25de35d-9d18-48eb-9d65-83c36c1fbdb7")
 	)
-	(junction
-		(at 165.1 24.13)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d5049d80-a4d9-47a2-89b9-9e6a8323580c")
-	)
 	(no_connect
 		(at 26.67 48.26)
 		(uuid "0085c660-a615-40a2-aa02-eef48d0c1505")
@@ -3669,24 +3543,12 @@
 		(uuid "03ec8b81-1e46-435c-8e87-79b198081783")
 	)
 	(no_connect
-		(at 77.47 101.6)
-		(uuid "057625fa-13a8-44d9-899f-681145dee53d")
-	)
-	(no_connect
-		(at 77.47 86.36)
-		(uuid "0638fcc1-be46-4551-9be2-c0bb73456145")
-	)
-	(no_connect
 		(at 77.47 76.2)
 		(uuid "0fd01d63-5859-4820-87ae-3b640ece71cb")
 	)
 	(no_connect
 		(at 77.47 45.72)
 		(uuid "15dc4305-5cde-43d9-8ffc-708579862596")
-	)
-	(no_connect
-		(at 77.47 93.98)
-		(uuid "1738a2f3-192e-4069-b860-6ab97e12144e")
 	)
 	(no_connect
 		(at 26.67 30.48)
@@ -3701,6 +3563,10 @@
 		(uuid "2ea4b7e3-1bef-4964-a6bc-4f57cf30eeb1")
 	)
 	(no_connect
+		(at 77.47 104.14)
+		(uuid "48ffce91-be47-48db-8323-a4024d19ee50")
+	)
+	(no_connect
 		(at 26.67 33.02)
 		(uuid "49ebf611-6c55-45d2-b977-021375e4d41a")
 	)
@@ -3709,20 +3575,16 @@
 		(uuid "780ffaa0-4b4e-4bba-8951-18c8a3b3ba4a")
 	)
 	(no_connect
+		(at 77.47 101.6)
+		(uuid "786912fd-627e-45b2-9f7c-2fc08b1c2995")
+	)
+	(no_connect
 		(at 77.47 48.26)
 		(uuid "8421e4be-d02b-409c-9128-f514d2ddafe0")
 	)
 	(no_connect
 		(at 77.47 99.06)
 		(uuid "9a3a42c4-db8c-4c9d-8edd-d7ca6e0cbd5d")
-	)
-	(no_connect
-		(at 77.47 88.9)
-		(uuid "9b81a206-c582-4ad2-8912-c694bdf1f7fc")
-	)
-	(no_connect
-		(at 77.47 104.14)
-		(uuid "a1df4127-9c8f-4a01-b1e3-1524be9dc134")
 	)
 	(no_connect
 		(at 26.67 40.64)
@@ -3741,8 +3603,8 @@
 		(uuid "b2b94240-5f4e-4d5c-8417-891df4a7a244")
 	)
 	(no_connect
-		(at 77.47 83.82)
-		(uuid "b4ed48e3-6139-4aae-8e33-5ce78db386a0")
+		(at 77.47 96.52)
+		(uuid "b8b9af93-7f1a-49b2-8667-02326f04d69c")
 	)
 	(no_connect
 		(at 77.47 33.02)
@@ -3751,10 +3613,6 @@
 	(no_connect
 		(at 77.47 58.42)
 		(uuid "ba8804be-d1b6-4fe7-95b2-ad0495402e3c")
-	)
-	(no_connect
-		(at 77.47 96.52)
-		(uuid "bda207fa-f531-49e3-9fa6-0c55e79bb4cf")
 	)
 	(no_connect
 		(at 77.47 40.64)
@@ -3777,8 +3635,8 @@
 		(uuid "e29e423c-62e8-46df-aa28-01193e0df4e6")
 	)
 	(no_connect
-		(at 77.47 91.44)
-		(uuid "f5c87993-4a33-42ae-b627-109ef9a1809b")
+		(at 77.47 83.82)
+		(uuid "ef303359-231e-4bfb-9422-0192881769fe")
 	)
 	(wire
 		(pts
@@ -3809,16 +3667,6 @@
 			(type default)
 		)
 		(uuid "181083b7-4128-4945-89ce-a16f58142929")
-	)
-	(wire
-		(pts
-			(xy 77.47 45.72) (xy 85.09 45.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1ab366c6-a6c1-49aa-af35-5dd98f6daa87")
 	)
 	(wire
 		(pts
@@ -3932,7 +3780,7 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 24.13) (xy 171.45 24.13)
+			(xy 161.29 24.13) (xy 171.45 24.13)
 		)
 		(stroke
 			(width 0)
@@ -3999,16 +3847,6 @@
 			(type default)
 		)
 		(uuid "517ad321-d629-452f-8c04-475f92e87282")
-	)
-	(wire
-		(pts
-			(xy 77.47 48.26) (xy 85.09 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "53d6d14e-05b3-4953-a00a-46ca431f4e12")
 	)
 	(wire
 		(pts
@@ -4312,16 +4150,6 @@
 	)
 	(wire
 		(pts
-			(xy 77.47 43.18) (xy 85.09 43.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c1d3a462-1870-4c3c-8d96-50be76dbc428")
-	)
-	(wire
-		(pts
 			(xy 106.68 125.73) (xy 109.22 125.73)
 		)
 		(stroke
@@ -4339,16 +4167,6 @@
 			(type default)
 		)
 		(uuid "c5e31e8a-9fef-4177-bb71-f6accf3d56e8")
-	)
-	(wire
-		(pts
-			(xy 77.47 50.8) (xy 85.09 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c6bc3c9d-fb9d-4bf6-bfcb-c6130e1e3565")
 	)
 	(wire
 		(pts
@@ -4439,16 +4257,6 @@
 			(type default)
 		)
 		(uuid "e1403930-3ceb-4019-9db9-2c5383a43d75")
-	)
-	(wire
-		(pts
-			(xy 161.29 24.13) (xy 165.1 24.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e3a7939f-1f8b-4966-9538-0212d9995724")
 	)
 	(wire
 		(pts
@@ -4612,7 +4420,7 @@
 	)
 	(global_label "servo1"
 		(shape input)
-		(at 85.09 43.18 0)
+		(at 77.47 93.98 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4622,7 +4430,7 @@
 		)
 		(uuid "2436c7c1-8b56-4c88-a990-ccf7e19e79b9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 94.3042 43.18 0)
+			(at 86.6842 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4766,7 +4574,7 @@
 	)
 	(global_label "servo3"
 		(shape input)
-		(at 85.09 48.26 0)
+		(at 77.47 88.9 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4776,7 +4584,7 @@
 		)
 		(uuid "4c048841-663b-4c2c-a06d-b75e3996909f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 94.3042 48.26 0)
+			(at 86.6842 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4898,7 +4706,7 @@
 	)
 	(global_label "servo4"
 		(shape input)
-		(at 85.09 50.8 0)
+		(at 77.47 86.36 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4908,7 +4716,7 @@
 		)
 		(uuid "ac6803d9-1e92-4542-baac-ffaf8a84b99c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 94.3042 50.8 0)
+			(at 86.6842 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4942,7 +4750,7 @@
 	)
 	(global_label "servo2"
 		(shape input)
-		(at 85.09 45.72 0)
+		(at 77.47 91.44 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4952,7 +4760,7 @@
 		)
 		(uuid "b5862865-346c-479e-ae4c-d4c5b3d36c81")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 94.3042 45.72 0)
+			(at 86.6842 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5294,72 +5102,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+BATT")
-		(at 181.61 62.23 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "1da6ec06-3389-409f-bfc5-11ecf3f353a3")
-		(property "Reference" "#PWR027"
-			(at 181.61 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+BATT"
-			(at 181.61 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 181.61 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 181.61 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+BATT\""
-			(at 181.61 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ea309e48-2f33-48db-bd11-db4c88163a5e")
-		)
-		(instances
-			(project "AVIONICS_PCB"
-				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
-					(reference "#PWR027")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Connector_Generic:Conn_01x04")
 		(at 113.03 90.17 0)
 		(unit 1)
@@ -5639,140 +5381,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+BATT")
-		(at 189.23 120.65 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "312a7d78-e2e6-4b0e-9b5a-45f1be88555e")
-		(property "Reference" "#PWR020"
-			(at 193.04 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+BATT"
-			(at 185.42 120.6499 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 189.23 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 189.23 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+BATT\""
-			(at 189.23 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "df3138b0-f1b4-4329-b1f4-10ca698f359e")
-		)
-		(instances
-			(project "AVIONICS_PCB"
-				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
-					(reference "#PWR020")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+BATT")
-		(at 189.23 154.94 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "34c49767-c40d-4abc-bee3-f95d1b90e7ff")
-		(property "Reference" "#PWR022"
-			(at 193.04 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+BATT"
-			(at 185.42 154.9399 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 189.23 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 189.23 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+BATT\""
-			(at 189.23 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "c535495d-b283-4309-95f0-ab66075833bf")
-		)
-		(instances
-			(project "AVIONICS_PCB"
-				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
-					(reference "#PWR022")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 157.48 72.39 0)
 		(unit 1)
@@ -6037,73 +5645,6 @@
 			(project "AVIONICS_PCB"
 				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
 					(reference "C4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+BATT")
-		(at 189.23 139.7 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "4beb448b-b70a-4ac7-a3c7-a7fce621673f")
-		(property "Reference" "#PWR021"
-			(at 193.04 139.7 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+BATT"
-			(at 185.42 139.6999 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 189.23 139.7 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 189.23 139.7 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+BATT\""
-			(at 189.23 139.7 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7900f5cf-2c02-47c7-99ab-6d47756abd43")
-		)
-		(instances
-			(project "AVIONICS_PCB"
-				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
-					(reference "#PWR021")
 					(unit 1)
 				)
 			)
@@ -7133,72 +6674,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+BATT")
-		(at 180.34 87.63 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7e459c6d-a399-4fab-ada7-5ab18f957832")
-		(property "Reference" "#PWR028"
-			(at 180.34 91.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+BATT"
-			(at 180.34 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 180.34 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 180.34 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+BATT\""
-			(at 180.34 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "64a78a5d-844b-4b3c-a6ba-8e2e14f7bcc1")
-		)
-		(instances
-			(project "AVIONICS_PCB"
-				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
-					(reference "#PWR028")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+3V3")
 		(at 106.68 40.64 180)
 		(unit 1)
@@ -7325,6 +6800,72 @@
 			(project ""
 				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
 					(reference "#PWR013")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 180.34 87.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "91a6790c-b589-448d-89b9-ead67fdac6fe")
+		(property "Reference" "#PWR021"
+			(at 180.34 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 180.34 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 180.34 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 180.34 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 180.34 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f4f769c6-3b21-4afb-bb14-00823ef11432")
+		)
+		(instances
+			(project "AVIONICS_PCB"
+				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
+					(reference "#PWR021")
 					(unit 1)
 				)
 			)
@@ -7558,17 +7099,17 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+BATT")
-		(at 165.1 24.13 0)
+		(lib_id "power:+3V3")
+		(at 189.23 139.7 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "9f912d94-aed9-4b65-97ce-7367b7e0467b")
-		(property "Reference" "#PWR018"
-			(at 165.1 27.94 0)
+		(uuid "a09679eb-4ded-4a81-9854-54d0d01ac37c")
+		(property "Reference" "#PWR019"
+			(at 193.04 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7576,16 +7117,17 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+BATT"
-			(at 165.1 19.05 0)
+		(property "Value" "+3V3"
+			(at 185.42 139.6999 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
-			(at 165.1 24.13 0)
+			(at 189.23 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7594,7 +7136,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 165.1 24.13 0)
+			(at 189.23 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7602,8 +7144,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+BATT\""
-			(at 165.1 24.13 0)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 189.23 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7612,12 +7154,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "82e5936b-c1bc-4034-b1d8-8d909c552e4d")
+			(uuid "b49cf08d-cb5d-4e67-bbb2-d199efb68aaa")
 		)
 		(instances
-			(project ""
+			(project "AVIONICS_PCB"
 				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
-					(reference "#PWR018")
+					(reference "#PWR019")
 					(unit 1)
 				)
 			)
@@ -7757,6 +7299,140 @@
 			(project ""
 				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
 					(reference "J4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 189.23 105.41 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a9a267d5-eaf9-4821-86c8-37d6a67b6268")
+		(property "Reference" "#PWR015"
+			(at 193.04 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 185.42 105.4099 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 189.23 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 189.23 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 189.23 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2901a1e9-c747-4850-9f85-d131695dfcb2")
+		)
+		(instances
+			(project "AVIONICS_PCB"
+				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
+					(reference "#PWR015")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 189.23 154.94 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ab1748ed-c15b-44cc-929b-2ddaba8a1ab3")
+		(property "Reference" "#PWR020"
+			(at 193.04 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 185.42 154.9399 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 189.23 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 189.23 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 189.23 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b36b19fb-21a9-411c-a3a9-b8f24808e40e")
+		)
+		(instances
+			(project "AVIONICS_PCB"
+				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
+					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -8243,73 +7919,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+BATT")
-		(at 189.23 105.41 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "d270cc2b-cb99-4975-ab79-76008d390c6c")
-		(property "Reference" "#PWR019"
-			(at 193.04 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+BATT"
-			(at 185.42 105.4099 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 189.23 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 189.23 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+BATT\""
-			(at 189.23 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ed59305b-6478-4ba5-a8c3-05bd7b3d750d")
-		)
-		(instances
-			(project "AVIONICS_PCB"
-				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
-					(reference "#PWR019")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Connector_Generic:Conn_01x06")
 		(at 113.03 29.21 0)
 		(unit 1)
@@ -8462,6 +8071,73 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3V3")
+		(at 189.23 120.65 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dca6f64c-0656-44e8-9dd3-610c39aef207")
+		(property "Reference" "#PWR017"
+			(at 193.04 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 185.42 120.6499 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 189.23 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 189.23 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 189.23 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "24ad756a-ed89-4866-bbb5-6a7b2d22f15c")
+		)
+		(instances
+			(project "AVIONICS_PCB"
+				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
+					(reference "#PWR017")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "SamacSys_Parts:MMBT2222ALT1G")
 		(at 161.29 67.31 0)
 		(unit 1)
@@ -8599,6 +8275,72 @@
 			(project ""
 				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
 					(reference "IC1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 181.61 62.23 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "de5095d7-bbfa-4c7f-a8f3-67b41b0ce23e")
+		(property "Reference" "#PWR018"
+			(at 181.61 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 181.61 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 181.61 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 181.61 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 181.61 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4372d596-62aa-4d8e-819b-4b0f4fee8634")
+		)
+		(instances
+			(project "AVIONICS_PCB"
+				(path "/62770ac1-9b47-4d00-b615-ae949e917d5b"
+					(reference "#PWR018")
 					(unit 1)
 				)
 			)
