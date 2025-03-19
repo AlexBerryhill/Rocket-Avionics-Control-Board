@@ -2,6 +2,8 @@
 #include "gps.h"
 #include <Arduino.h>
 
+#define SD_CS 13
+
 /******************************************
  * start
  * @brief Calls the processData function on the specified core
@@ -20,27 +22,32 @@ void ProcessData::start(int core){
 }
 
 void ProcessData::processData(void *pvParameters) {
-//   int pressureList[8];
+  ProcessData *self = reinterpret_cast<ProcessData *>(pvParameters);
   GPS gps(1, 2);
 
-  for(;;) {
-    // Empty the pressure list
-    // pressureList.empty_slots();
-    // code to stabilize
-    for (int i = 0; i < 8; i++) { // Takes 80 ms to read pressure sensor 8 times
-        // Add to pressure list
-        // pressureList.push_back(pressureSensor.readPressure());
-        vTaskDelay(10 / portTICK_PERIOD_MS);
-    }
-
-    // Get GPS
-    gps.getGPS();
-    // Save data to SD and Radio
-    // saveSD(pressureList);
-    // sendRadio(pressureList);
-
-    // vTaskDelay((2000-80) / portTICK_PERIOD_MS);
+  if (!SD.begin(SD_CS, SPI, 4000000)) {
+      Serial.println("SD Card initialization failed!");
+      vTaskDelete(NULL);
   }
+  Serial.println("SD Card initialized.");
 
-  // vTaskDelete(NULL);
+  for (;;) {
+      for (int i = 0; i < 8; i++) {
+          vTaskDelay(10 / portTICK_PERIOD_MS);
+      }
+
+      Serial.println("GPS Data: ");
+      gps.getGPS();
+
+      self->logFile = SD.open("log.txt", FILE_APPEND);
+      if (self->logFile) {
+          self->logFile.println("GPS Data logged");
+          self->logFile.close();
+      } else {
+          Serial.println("Failed to log GPS data.");
+      }
+
+      vTaskDelay((2000 - 80) / portTICK_PERIOD_MS);
+  }
+  vTaskDelete(NULL);
 }
