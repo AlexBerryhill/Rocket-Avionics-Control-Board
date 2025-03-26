@@ -19,21 +19,36 @@ Adafruit_MPU6050 mpu;
 #define SDA_PIN 8 
 #define SCL_PIN 9
 
-// Add new methods to read sensor data
+// Global variables to track angle
+float roll = 0.0;
+float pitch = 0.0;
+float yaw = 0.0;
+
+// Function to calculate angle from accelerometer data
+void calculateAngles(sensors_event_t* a, float* roll, float* pitch) {
+    // Calculate pitch (rotation around X-axis)
+    *pitch = atan2(a->acceleration.y, sqrt(a->acceleration.x * a->acceleration.x + a->acceleration.z * a->acceleration.z)) * 180.0 / PI;
+    
+    // Calculate roll (rotation around Y-axis)
+    *roll = atan2(-a->acceleration.x, a->acceleration.z) * 180.0 / PI;
+}
+
 void ProcessData::readAndPrintBMPData(bool saveToSD) {
     float temperature = bmp.readTemperature();
     int32_t pressure = bmp.readPressure();
     float altitude = bmp.readAltitude();
 
+    // CSV format: Timestamp, Temperature, Pressure, Altitude
     char bmpDataBuffer[200];
     snprintf(bmpDataBuffer, sizeof(bmpDataBuffer), 
-             "BMP180 Data: Temp: %.2f°C, Pressure: %ld Pa, Altitude: %.2f m\n", 
-             temperature, pressure, altitude);
+             "%lu,%.2f,%ld,%.2f\n", 
+             millis(), temperature, pressure, altitude);
     
+    Serial.print("BMP180 CSV: ");
     Serial.print(bmpDataBuffer);
 
     if (saveToSD) {
-        appendFile(SD, "/log.txt", bmpDataBuffer);
+        appendFile(SD, "/bmp_log.csv", bmpDataBuffer);
     }
 }
 
@@ -41,17 +56,22 @@ void ProcessData::readAndPrintMPUData(bool saveToSD) {
     sensors_event_t a, g, temp;
     mpu.getEvent(&a, &g, &temp);
 
+    // Calculate angles
+    float currentRoll = 0.0;
+    float currentPitch = 0.0;
+    calculateAngles(&a, &currentRoll, &currentPitch);
+
+    // CSV format: Timestamp, Roll, Pitch, Temperature
     char mpuDataBuffer[250];
     snprintf(mpuDataBuffer, sizeof(mpuDataBuffer), 
-             "MPU-6050 Data: Accel(g): X:%.2f, Y:%.2f, Z:%.2f, Gyro(°/s): X:%.2f, Y:%.2f, Z:%.2f, Temp: %.2f°C\n", 
-             a.acceleration.x, a.acceleration.y, a.acceleration.z,
-             g.gyro.x, g.gyro.y, g.gyro.z,
-             temp.temperature);
+             "%lu,%.2f,%.2f,%.2f\n", 
+             millis(), currentRoll, currentPitch, temp.temperature);
     
+    Serial.print("MPU-6050 CSV: ");
     Serial.print(mpuDataBuffer);
 
     if (saveToSD) {
-        appendFile(SD, "/log.txt", mpuDataBuffer);
+        appendFile(SD, "/mpu_log.csv", mpuDataBuffer);
     }
 }
 
@@ -87,8 +107,10 @@ void ProcessData::processDataInstance()
 {
     vTaskDelay(1000 / portTICK_PERIOD_MS); // Delay to allow serial monitor to start
 
-    Serial.println("Initializing BMP180 sensor...");
+    Serial.println("Initializing I2C Sensors...");
     Wire.begin(SDA_PIN, SCL_PIN);
+    
+    // Initialize BMP180
     if (!bmp.begin()) {
         Serial.println("Could not find a valid BMP180 sensor, check wiring!");
         while (1) {}
@@ -96,8 +118,8 @@ void ProcessData::processDataInstance()
         Serial.println("BMP180 sensor found!");
     }
 
-     // Initialize MPU-6050
-     if (!mpu.begin()) {
+    // Initialize MPU-6050
+    if (!mpu.begin()) {
         Serial.println("Could not find a valid MPU-6050 sensor, check wiring!");
         while (1) {}
     } else {
@@ -176,7 +198,9 @@ void ProcessData::processDataInstance()
     }
 
     Serial.println("SD Card initialized.");
-    createFile(SD, "/log.txt", "GPS Data: ");
+    // Add CSV headers when files are created
+    createFile(SD, "/bmp_log.csv", "Timestamp,Temperature,Pressure,Altitude\n");
+    createFile(SD, "/mpu_log.csv", "Timestamp,Roll,Pitch,Temperature\n");
 
     for (;;)
     {
@@ -191,7 +215,7 @@ void ProcessData::processDataInstance()
         readAndPrintMPUData(true);    // Read MPU-6050 data and save to SD
 
         // Save to SD
-        appendFile(SD, "/log.txt", "GPS Data: ");
+        // appendFile(SD, "/log.txt", "GPS Data: ");
 
         vTaskDelay((2000 - 80) / portTICK_PERIOD_MS);
     }
