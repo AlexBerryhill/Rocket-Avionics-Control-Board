@@ -16,6 +16,8 @@ class ProcessData {
         void createFile(fs::FS &fs, const char * path, const char * message);
         void appendFile(fs::FS &fs, const char * path, const char * message);
         void readFile(fs::FS &fs, const char * path);
+        void readAndPrintBMPData(bool saveToSD);
+        void readAndPrintMPUData(bool saveToSD);
 
         static void processDataStatic(void *pvParameters);
         void processDataInstance();
