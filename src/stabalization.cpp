@@ -83,7 +83,7 @@ void Stabalization::stabalization() {
     // Update yaw servo
     updateServoYaw(YawBefore, yawNow);
 
-    delay(100); // Optional delay to prevent rapid updates
+    //delay(50); // Optional delay to prevent rapid updates
   }
   vTaskDelete(NULL);
 }
