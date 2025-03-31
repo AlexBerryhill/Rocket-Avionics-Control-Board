@@ -6,17 +6,43 @@
 //  * @brief Calls the TaskPrintCore1 function on the specified core
 //  * @param core: The core number to run the task on
 //  ******************************************/
-// void startStabalization(int core){ // remove parameter on arduino because of only one addressable core (there are two but it is hard to call)
-//   xTaskPinnedToCore( //xTaskCreate on Arduino
-//       stabalization,    // Task function
-//       "PrintCore1",      // Task name
-//       1024,              // Stack size
-//       NULL,              // Task input parameters
-//       1,                 // Priority (higher number = higher priority)
-//       NULL,              // Task handle (optional)
-//       core                  // Pin to Core 0 (omit on Arduino)
-//   ); 
-// }
+void startStabalization(int core){ // remove parameter on arduino because of only one addressable core (there are two but it is hard to call)
+  xTaskPinnedToCore( //xTaskCreate on Arduino
+      stabalization,    // Task function
+      "PrintCore1",      // Task name
+      1024,              // Stack size
+      NULL,              // Task input parameters
+      1,                 // Priority (higher number = higher priority)
+      NULL,              // Task handle (optional)
+      core                  // Pin to Core 0 (omit on Arduino)
+  ); 
+}
+//sample data
+void ProcessData::readAndPrintMPUData(bool saveToSD) {
+  sensors_event_t a, g, temp;
+  mpu.getEvent(&a, &g, &temp);
+
+  // Calculate angles
+  float currentRoll = 0.0;
+  float currentPitch = 0.0;
+  calculateAngles(&a, &currentRoll, &currentPitch);
+
+  // CSV format: Timestamp, Roll, Pitch, Temperature
+  char mpuDataBuffer[250];
+  snprintf(mpuDataBuffer, sizeof(mpuDataBuffer), 
+           "%lu,%.2f,%.2f,%.2f\n", 
+           millis(), currentRoll, currentPitch, temp.temperature);
+  
+  Serial.print("MPU-6050 CSV: ");
+  Serial.print(mpuDataBuffer);
+
+  if (saveToSD) {
+      appendFile(SD, "/mpu_log.csv", mpuDataBuffer);
+  }
+}
+
+
+
 Servo myServoPitch;  // Servo for pitch control
 Servo myServoYaw;    // Servo for yaw control
 
