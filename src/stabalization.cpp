@@ -6,7 +6,13 @@
 //  * @brief Calls the TaskPrintCore1 function on the specified core
 //  * @param core: The core number to run the task on
 //  ******************************************/
-void startStabalization(int core){ // remove parameter on arduino because of only one addressable core (there are two but it is hard to call)
+void Stabilization::start(int core){ // remove parameter on arduino because of only one addressable core (there are two but it is hard to call)
+  myServoPitch.attach(38); // Attach pitch servo to pin 38
+  myServoYaw.attach(37); // Attach pitch servo to pin 37
+  myServoUp.attach(36); // Attach pitch servo to pin 36
+  myServodown.attach(35); // Attach pitch servo to pin 35
+
+
   xTaskPinnedToCore( //xTaskCreate on Arduino
       stabalization,    // Task function
       "PrintCore1",      // Task name
@@ -17,6 +23,8 @@ void startStabalization(int core){ // remove parameter on arduino because of onl
       core                  // Pin to Core 0 (omit on Arduino)
   ); 
 }
+//////////////////////////////////////////////////////////////////////////////////////////
+
 //sample data
 void ProcessData::readAndPrintMPUData(bool saveToSD) {
   sensors_event_t a, g, temp;
