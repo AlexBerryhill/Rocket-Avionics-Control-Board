@@ -17,7 +17,15 @@
 //       core                  // Pin to Core 0 (omit on Arduino)
 //   ); 
 // }
+Servo myServoPitch;  // Servo for pitch control
+Servo myServoYaw;    // Servo for yaw control
 
+
+void setup() {
+  Serial.begin(115200); // Initialize Serial Monitor for debugging
+  myServoPitch.attach(9); // Attach pitch servo to pin 9
+  myServoYaw.attach(10);  // Attach yaw servo to pin 10
+}
 // void TaskPrintCore1(void *pvParameters) {
 //   for(;;) {
 //     // code to stabilize
@@ -35,19 +43,6 @@
 //  * @brief Stabalizes the robot
 //  ******************************************/
 
-Servo myServoPitch;  // Servo for pitch control
-Servo myServoYaw;    // Servo for yaw control
-
-// int pitchBefore = 90;  // Initial pitch value
-// int pitchAfter = 100;  // Example pitch value
-// int YawBefore = 90;    // Initial yaw value
-// int yawNow = 120;      // Example yaw value
-
-void setup() {
-  Serial.begin(115200); // Initialize Serial Monitor for debugging
-  myServoPitch.attach(9); // Attach pitch servo to pin 9
-  myServoYaw.attach(10);  // Attach yaw servo to pin 10
-}
 
 void loop() {
   // Update pitch servo
