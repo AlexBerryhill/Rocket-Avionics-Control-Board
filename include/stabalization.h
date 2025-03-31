@@ -10,6 +10,8 @@ class Stabalization
         void start(int core);
     private:
         void stabalization();
+        void updateServoPitch();
+        void updateServoYaw();
 };
 
 #endif

@@ -1,16 +1,23 @@
 #include "stabalization.h"
 #include <Arduino.h>
 #include <Servo.h>
+
+
+Servo myServoPitch;  // Servo for pitch control
+Servo myServoYaw;    // Servo for yaw control
+Servo myServoUp;  // Servo for pitch control
+Servo myServoDown;    // Servo for yaw control
+
 // /******************************************
 //  * callCore
-//  * @brief Calls the TaskPrintCore1 function on the specified core
+//  * @brief Calls the Stabalization function on the specified core
 //  * @param core: The core number to run the task on
 //  ******************************************/
-void Stabilization::start(int core){ // remove parameter on arduino because of only one addressable core (there are two but it is hard to call)
+void Stabalization::start(int core){ // remove parameter on arduino because of only one addressable core (there are two but it is hard to call)
   myServoPitch.attach(38); // Attach pitch servo to pin 38
   myServoYaw.attach(37); // Attach pitch servo to pin 37
   myServoUp.attach(36); // Attach pitch servo to pin 36
-  myServodown.attach(35); // Attach pitch servo to pin 35
+  myServoDown.attach(35); // Attach pitch servo to pin 35
 
 
   xTaskPinnedToCore( //xTaskCreate on Arduino
@@ -26,7 +33,7 @@ void Stabilization::start(int core){ // remove parameter on arduino because of o
 //////////////////////////////////////////////////////////////////////////////////////////
 
 //sample data
-void ProcessData::readAndPrintMPUData(bool saveToSD) {
+void Stabalization::readAndPrintMPUData(bool saveToSD) {
   sensors_event_t a, g, temp;
   mpu.getEvent(&a, &g, &temp);
 
@@ -50,16 +57,6 @@ void ProcessData::readAndPrintMPUData(bool saveToSD) {
 }
 
 
-
-Servo myServoPitch;  // Servo for pitch control
-Servo myServoYaw;    // Servo for yaw control
-
-
-void setup() {
-  Serial.begin(115200); // Initialize Serial Monitor for debugging
-  myServoPitch.attach(9); // Attach pitch servo to pin 9
-  myServoYaw.attach(10);  // Attach yaw servo to pin 10
-}
 // void TaskPrintCore1(void *pvParameters) {
 //   for(;;) {
 //     // code to stabilize
@@ -78,14 +75,17 @@ void setup() {
 //  ******************************************/
 
 
-void loop() {
+void Stabalization::stabalization() {
   // Update pitch servo
-  updateServoPitch(pitchBefore, pitchNow);
+  while(true){
+    updateServoPitch(pitchBefore, pitchNow);
 
-  // Update yaw servo
-  updateServoYaw(YawBefore, yawNow);
+    // Update yaw servo
+    updateServoYaw(YawBefore, yawNow);
 
-  delay(100); // Optional delay to prevent rapid updates
+    delay(100); // Optional delay to prevent rapid updates
+  }
+  vTaskDelete(NULL);
 }
 
 // Function to update pitch servo
