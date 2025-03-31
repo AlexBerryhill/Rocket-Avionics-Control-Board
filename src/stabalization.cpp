@@ -1,5 +1,6 @@
 #include "stabalization.h"
-
+#include <Arduino.h>
+#include <Servo.h>
 // /******************************************
 //  * callCore
 //  * @brief Calls the TaskPrintCore1 function on the specified core
@@ -33,15 +34,52 @@
 //  * stabalization
 //  * @brief Stabalizes the robot
 //  ******************************************/
-// void stabalization() {
-//   // code to stabilize
-//   for (;;){
-//     // code to stabilize
-//     vTaskDelay(1000);
-//   }
 
-//   vTaskDelete(NULL);
-// }
+Servo myServoPitch;  // Servo for pitch control
+Servo myServoYaw;    // Servo for yaw control
+
+// int pitchBefore = 90;  // Initial pitch value
+// int pitchAfter = 100;  // Example pitch value
+// int YawBefore = 90;    // Initial yaw value
+// int yawNow = 120;      // Example yaw value
+
+void setup() {
+  Serial.begin(115200); // Initialize Serial Monitor for debugging
+  myServoPitch.attach(9); // Attach pitch servo to pin 9
+  myServoYaw.attach(10);  // Attach yaw servo to pin 10
+}
+
+void loop() {
+  // Update pitch servo
+  updateServoPitch(pitchBefore, pitchNow);
+
+  // Update yaw servo
+  updateServoYaw(YawBefore, yawNow);
+
+  delay(100); // Optional delay to prevent rapid updates
+}
+
+// Function to update pitch servo
+void updateServoPitch(int &pitchBefore, int pitchNow) {
+  if (pitchBefore != pitchNow) {
+    int servoAnglePitch = constrain(pitchNow, 0, 180); // Ensure valid angle range
+    myServoPitch.write(servoAnglePitch); // Update pitch servo position
+    pitchBefore = pitchNow;  // Update pitch reference value
+    Serial.print("Pitch Updated to: ");
+    Serial.println(servoAnglePitch);
+  }
+}
+
+// Function to update yaw servo
+void updateServoYaw(int &YawBefore, int yawNow) {
+  if (YawBefore != yawNow) {
+    int servoAngleYaw = constrain(yawNow, 0, 180); // Ensure valid angle range
+    myServoYaw.write(servoAngleYaw); // Update yaw servo position
+    YawBefore = yawNow;  // Update yaw reference value
+    Serial.print("Yaw Updated to: ");
+    Serial.println(servoAngleYaw);
+  }
+}
 
 // /******************************************
 //  * moveLeft
