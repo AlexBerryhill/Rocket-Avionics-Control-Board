@@ -9,6 +9,7 @@
 #include <TinyGPSPlus.h>
 #include <esp_now.h>
 #include <WiFi.h>
+#include <ESP32Servo.h>
 
 Adafruit_BMP085 bmp;
 Adafruit_MPU6050 mpu;
@@ -186,7 +187,6 @@ void ProcessData::processDataInstance()
         // Instead of returning, enter a safer loop that just prints data but doesn't try to use SD
         for (;;) {
             Serial.println("GPS Data: (SD disabled)");
-            // gps.getGPS();
             readAndPrintBMPData(false);
             vTaskDelay(2000 / portTICK_PERIOD_MS);
         }
@@ -243,6 +243,7 @@ void ProcessData::processDataInstance()
         // appendFile(SD, "/log.txt", "GPS Data: ");
 
         vTaskDelay((2000 - 80) / portTICK_PERIOD_MS);
+        
     }
     vTaskDelete(NULL);
 

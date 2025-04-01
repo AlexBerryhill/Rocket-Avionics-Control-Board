@@ -2,6 +2,7 @@
 #define STABALIZATION_H
 #include <Arduino.h>
 #include <cstddef>
+#include <ESP32Servo.h>
 
 // Define the prototypes for the functions
 class Stabalization
