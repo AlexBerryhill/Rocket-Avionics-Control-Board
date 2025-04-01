@@ -34,19 +34,24 @@ float roll = 0.0;
 float pitch = 0.0;
 float yaw = 0.0;
 
+//testing the radio broadcast
+char testA[31] = "This is a test";
+float floatC = 0.01;
+float floatD = 0.01;
+
 //Radio variables
-uint8_t broadcastAddress[] = {0x7C, 0xDF, 0xA1, 0xFB, 0x2A, 0xC8};
+uint8_t broadcastAddress[] = {0x7C, 0xDF, 0xA1, 0xFB, 0x20, 0x88};
 typedef struct struct_message {
     char a[32];
-    char b[32];
     float c;
     float d;
-    float e;
-    float f;
   } struct_message;
   // Create a struct_message called myData
 struct_message myData;
 esp_now_peer_info_t peerInfo;
+
+
+
 
 
 
@@ -110,7 +115,7 @@ void ProcessData::start(int core)
     xTaskCreatePinnedToCore(
         processDataStatic,  // Use a static function as the task function
         "processData",      // Task name
-        8192,               // Stack size
+        32768,               // Stack size
         this,               // Pass 'this' pointer as parameter
         1,                  // Priority
         NULL,               // Task handle
@@ -132,6 +137,38 @@ void ProcessData::processDataStatic(void *pvParameters)
 void ProcessData::processDataInstance()
 {
     vTaskDelay(1000 / portTICK_PERIOD_MS); // Delay to allow serial monitor to start
+
+
+    // Start Serial over USB for debugging/output:
+  Serial.println("Starting GPS interface...");
+
+  // Initialize the secondary UART for the GPS module:
+  gpsSerial.begin(GPS_BAUD, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN);
+
+      // Set device as a Wi-Fi Station
+    Serial.println("Starting ESP_NOW interface...");
+  WiFi.mode(WIFI_STA);
+
+  // Init ESP-NOW
+  if (esp_now_init() != ESP_OK) {
+    Serial.println("Error initializing ESP-NOW");
+    return;
+  }
+
+  // Once ESPNow is successfully Init, we will register for Send CB to
+  // get the status of Trasnmitted packet
+  esp_now_register_send_cb(OnDataSent);
+  
+  // Register peer
+  memcpy(peerInfo.peer_addr, broadcastAddress, 6);
+  peerInfo.channel = 0;  
+  peerInfo.encrypt = false;
+  
+  // Add peer        
+  if (esp_now_add_peer(&peerInfo) != ESP_OK){
+    Serial.println("Failed to add peer");
+    return;
+  }
 
     Serial.println("Initializing I2C Sensors...");
     Wire.begin(SDA_PIN, SCL_PIN);
@@ -239,6 +276,9 @@ void ProcessData::processDataInstance()
         readAndPrintBMPData(true);    // Read BMP180 data and save to SD
         readAndPrintMPUData(true);    // Read MPU-6050 data and save to SD
 
+
+        SendRadioData(testA, &floatC, &floatD);
+
         // Save to SD
         // appendFile(SD, "/log.txt", "GPS Data: ");
 
@@ -247,35 +287,6 @@ void ProcessData::processDataInstance()
     }
     vTaskDelete(NULL);
 
-      // Start Serial over USB for debugging/output:
-  Serial.println("Starting GPS interface...");
-
-  // Initialize the secondary UART for the GPS module:
-  gpsSerial.begin(GPS_BAUD, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN);
-
-  // Set device as a Wi-Fi Station
-  WiFi.mode(WIFI_STA);
-
-  // Init ESP-NOW
-  if (esp_now_init() != ESP_OK) {
-    Serial.println("Error initializing ESP-NOW");
-    return;
-  }
-
-  // Once ESPNow is successfully Init, we will register for Send CB to
-  // get the status of Trasnmitted packet
-  esp_now_register_send_cb(OnDataSent);
-  
-  // Register peer
-  memcpy(peerInfo.peer_addr, broadcastAddress, 6);
-  peerInfo.channel = 0;  
-  peerInfo.encrypt = false;
-  
-  // Add peer        
-  if (esp_now_add_peer(&peerInfo) != ESP_OK){
-    Serial.println("Failed to add peer");
-    return;
-  }
 }
 
 /********* File Management **********/
@@ -367,22 +378,33 @@ void ProcessData::OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t stat
     Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
 }
 
-void ProcessData::SendRadioData(char *a, char *b, float *c, float *d, float *e, float *f){
+void ProcessData::SendRadioData(char *a, float *c, float *d){
+    if(!a || !c || !d){
+        Serial.println("Error: Null pointer passed to sendRadioData");
+        return;
+    }
+
     // Set values to send
-    strcpy(myData.a, a);
-    strcpy(myData.b, b);
+    Serial.println("Entering SendRadioData");
+    strncpy(myData.a, a, sizeof(myData.a) - 1);
+    myData.a[sizeof(myData.a) - 1] = '\0'; // Ensure null termination
+    Serial.println("strcpy(myData.a, a)");
+    Serial.println(myData.a);
     myData.c = *c;
+    Serial.println("myData.c = *c");
+    Serial.println(myData.c);
+    Serial.println(*d);
     myData.d = *d;
-    myData.e = *e;
-    myData.f = *f;
+    Serial.println("myData.d = *d");
+    Serial.println(myData.d);
 
     // Send message via ESP-NOW
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &myData, sizeof(myData));
   
-    // if (result == ESP_OK) {
-    //   Serial.println("Sent with success");
-    // }
-    // else {
-    //   Serial.println("Error sending the data");
-    // }
+    if (result == ESP_OK) {
+      Serial.println("Sent with success");
+    }
+    else {
+      Serial.println("Error sending the data");
+    }
 }

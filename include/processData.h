@@ -24,7 +24,7 @@ class ProcessData {
         void processDataInstance();
         void readGPS();
         static void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status);
-        void SendRadioData(char *a, char *b, float *c, float *d, float *e, float *f);
+        void SendRadioData(char *a, float *c, float *d);
 
 
     /* data */   
