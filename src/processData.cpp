@@ -1,5 +1,4 @@
 #include "processData.h"
-#include "gps.h"
 #include <Arduino.h>
 #include <SD.h>
 #include <SPI.h>
@@ -7,9 +6,15 @@
 #include <Wire.h>
 #include <Adafruit_BMP085.h>
 #include <Adafruit_MPU6050.h>
+#include <TinyGPSPlus.h>
+#include <esp_now.h>
+#include <WiFi.h>
 
 Adafruit_BMP085 bmp;
 Adafruit_MPU6050 mpu;
+
+TinyGPSPlus gps;
+HardwareSerial gpsSerial(0);
 
 #define SD_CS 13
 #define SD_MOSI 12
@@ -19,10 +24,30 @@ Adafruit_MPU6050 mpu;
 #define SDA_PIN 8 
 #define SCL_PIN 9
 
+#define GPS_RX_PIN   44
+#define GPS_TX_PIN   43
+#define GPS_BAUD     9600  // Typical default baud for the NEO-6M module
+
 // Global variables to track angle
 float roll = 0.0;
 float pitch = 0.0;
 float yaw = 0.0;
+
+//Radio variables
+uint8_t broadcastAddress[] = {0x7C, 0xDF, 0xA1, 0xFB, 0x2A, 0xC8};
+typedef struct struct_message {
+    char a[32];
+    char b[32];
+    float c;
+    float d;
+    float e;
+    float f;
+  } struct_message;
+  // Create a struct_message called myData
+struct_message myData;
+esp_now_peer_info_t peerInfo;
+
+
 
 // Function to calculate angle from accelerometer data
 void calculateAngles(sensors_event_t* a, float* roll, float* pitch) {
@@ -220,6 +245,36 @@ void ProcessData::processDataInstance()
         vTaskDelay((2000 - 80) / portTICK_PERIOD_MS);
     }
     vTaskDelete(NULL);
+
+      // Start Serial over USB for debugging/output:
+  Serial.println("Starting GPS interface...");
+
+  // Initialize the secondary UART for the GPS module:
+  gpsSerial.begin(GPS_BAUD, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN);
+
+  // Set device as a Wi-Fi Station
+  WiFi.mode(WIFI_STA);
+
+  // Init ESP-NOW
+  if (esp_now_init() != ESP_OK) {
+    Serial.println("Error initializing ESP-NOW");
+    return;
+  }
+
+  // Once ESPNow is successfully Init, we will register for Send CB to
+  // get the status of Trasnmitted packet
+  esp_now_register_send_cb(OnDataSent);
+  
+  // Register peer
+  memcpy(peerInfo.peer_addr, broadcastAddress, 6);
+  peerInfo.channel = 0;  
+  peerInfo.encrypt = false;
+  
+  // Add peer        
+  if (esp_now_add_peer(&peerInfo) != ESP_OK){
+    Serial.println("Failed to add peer");
+    return;
+  }
 }
 
 /********* File Management **********/
@@ -284,3 +339,49 @@ void ProcessData::appendFile(fs::FS &fs, const char *path, const char *message)
     file.close();
 }
 
+void ProcessData::readGPS(){
+    // Check for incoming data from the GPS:
+    while (gpsSerial.available()) {
+      char c = gpsSerial.read();
+  
+      // Optionally echo the raw NMEA character to the Serial Monitor:
+      //Serial.write(c);
+  
+      // Feed the character into TinyGPS++ for parsing:
+      gps.encode(c);
+    }
+  
+    // When a new location fix is available, print the coordinates:
+//     if (gps.location.isUpdated()) {
+//       Serial.print("\nLatitude: ");
+//       Serial.print(gps.location.lat(), 6);
+//       Serial.print("  Longitude: ");
+//       Serial.println(gps.location.lng(), 6);
+//     }
+}
+
+// callback when data is sent
+void ProcessData::OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status){
+    Serial.print("\r\nLast Packet Send Status:\t");
+    Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
+}
+
+void ProcessData::SendRadioData(char *a, char *b, float *c, float *d, float *e, float *f){
+    // Set values to send
+    strcpy(myData.a, a);
+    strcpy(myData.b, b);
+    myData.c = *c;
+    myData.d = *d;
+    myData.e = *e;
+    myData.f = *f;
+
+    // Send message via ESP-NOW
+    esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &myData, sizeof(myData));
+  
+    // if (result == ESP_OK) {
+    //   Serial.println("Sent with success");
+    // }
+    // else {
+    //   Serial.println("Error sending the data");
+    // }
+}
