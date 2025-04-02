@@ -34,17 +34,23 @@ float roll = 0.0;
 float pitch = 0.0;
 float yaw = 0.0;
 
-//testing the radio broadcast
-char testA[31] = "This is a test";
-float floatC = 0.01;
-float floatD = 0.01;
+//Default Send Messages:
+char gpsSendMessage[31] = "Telemetry Data: ";
+double doubleC = 0.0; 
+double doubleD = 0.0;
+float floatE = 0.0;
+float floatF = 0.0;
+float floatG = 0.0;
 
 //Radio variables
 uint8_t broadcastAddress[] = {0x7C, 0xDF, 0xA1, 0xFB, 0x20, 0x88};
 typedef struct struct_message {
     char a[32];
-    float c;
-    float d;
+    double c;
+    double d;
+    float e;
+    float f;
+    float g;
   } struct_message;
   // Create a struct_message called myData
 struct_message myData;
@@ -91,6 +97,8 @@ void ProcessData::readAndPrintMPUData(bool saveToSD) {
     float currentPitch = 0.0;
     calculateAngles(&a, &currentRoll, &currentPitch);
 
+    floatE = currentPitch;
+    floatF = currentRoll;
     // CSV format: Timestamp, Roll, Pitch, Temperature
     char mpuDataBuffer[250];
     snprintf(mpuDataBuffer, sizeof(mpuDataBuffer), 
@@ -270,13 +278,13 @@ void ProcessData::processDataInstance()
             vTaskDelay(10 / portTICK_PERIOD_MS);
         }
 
-        Serial.println("GPS Data: ");
-        // gps.getGPS();
+
         readAndPrintBMPData(true);    // Read BMP180 data and save to SD
         readAndPrintMPUData(true);    // Read MPU-6050 data and save to SD
 
+        readGPS();
+        SendRadioData(gpsSendMessage, &doubleC, &doubleD, &floatE, &floatF, &floatG);
 
-        SendRadioData(testA, &floatC, &floatD);
 
         // Save to SD
         // appendFile(SD, "/log.txt", "GPS Data: ");
@@ -355,20 +363,17 @@ void ProcessData::readGPS(){
     while (gpsSerial.available()) {
       char c = gpsSerial.read();
   
-      // Optionally echo the raw NMEA character to the Serial Monitor:
-      //Serial.write(c);
-  
       // Feed the character into TinyGPS++ for parsing:
       gps.encode(c);
     }
   
     // When a new location fix is available, print the coordinates:
-//     if (gps.location.isUpdated()) {
-//       Serial.print("\nLatitude: ");
-//       Serial.print(gps.location.lat(), 6);
-//       Serial.print("  Longitude: ");
-//       Serial.println(gps.location.lng(), 6);
-//     }
+
+    if (gps.location.isUpdated()){
+        doubleC = (gps.location.lat(), 6);
+        doubleD = (gps.location.lng(), 6);
+
+     }
 }
 
 // callback when data is sent
@@ -377,7 +382,7 @@ void ProcessData::OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t stat
     Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
 }
 
-void ProcessData::SendRadioData(char *a, float *c, float *d){
+void ProcessData::SendRadioData(char *a, double *c, double *d, float *e, float *f, float *g){
     if(!a || !c || !d){
         Serial.println("Error: Null pointer passed to sendRadioData");
         return;
@@ -387,15 +392,11 @@ void ProcessData::SendRadioData(char *a, float *c, float *d){
     Serial.println("Entering SendRadioData");
     strncpy(myData.a, a, sizeof(myData.a) - 1);
     myData.a[sizeof(myData.a) - 1] = '\0'; // Ensure null termination
-    Serial.println("strcpy(myData.a, a)");
-    Serial.println(myData.a);
     myData.c = *c;
-    Serial.println("myData.c = *c");
-    Serial.println(myData.c);
-    Serial.println(*d);
     myData.d = *d;
-    Serial.println("myData.d = *d");
-    Serial.println(myData.d);
+    myData.e = *e;
+    myData.f = *f;
+    myData.g = *g;
 
     // Send message via ESP-NOW
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &myData, sizeof(myData));
