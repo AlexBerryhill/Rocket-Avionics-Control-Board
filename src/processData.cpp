@@ -389,7 +389,6 @@ void ProcessData::SendRadioData(char *a, double *c, double *d, float *e, float *
     }
 
     // Set values to send
-    Serial.println("Entering SendRadioData");
     strncpy(myData.a, a, sizeof(myData.a) - 1);
     myData.a[sizeof(myData.a) - 1] = '\0'; // Ensure null termination
     myData.c = *c;
