@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <cstddef>
 #include <ESP32Servo.h>
+#include <Adafruit_MPU6050.h>
 
 // Define the prototypes for the functions
 class Stabalization
@@ -10,9 +11,11 @@ class Stabalization
     public:
         void start(int core);
     private:
-        void stabalization();
-        void updateServoPitch();
-        void updateServoYaw();
+        static void stabalization(void* pvParameters);
+        static void calculateAngles(sensors_event_t* a, float* roll, float* pitch);
+        void updateAngles();
+        static void updateServoPitch(float pitchNow);
+        static void updateServoYaw(float yawNow);
 };
 
 #endif

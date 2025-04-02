@@ -122,7 +122,7 @@ void ProcessData::start(int core)
     xTaskCreatePinnedToCore(
         processDataStatic,  // Use a static function as the task function
         "processData",      // Task name
-        32768,               // Stack size
+        8192,               // Stack size
         this,               // Pass 'this' pointer as parameter
         1,                  // Priority
         NULL,               // Task handle

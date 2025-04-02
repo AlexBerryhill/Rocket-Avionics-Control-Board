@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <SPI.h>
-// #include "stabalization.h"
+#include "stabalization.h"
 #include "processData.h"
 
 
@@ -9,11 +9,11 @@ void setup() {
   Serial.println("Starting...");
 
   ProcessData process;
-  // Stabalization stabalize;
+  Stabalization stabalize;
 
   // Start the processing task
   process.start(1);
-  // stabalize.startStabalization(0);
+  stabalize.start(0);
   
 }
 
