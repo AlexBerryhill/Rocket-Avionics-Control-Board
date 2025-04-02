@@ -54,7 +54,6 @@ esp_now_peer_info_t peerInfo;
 
 
 
-
 // Function to calculate angle from accelerometer data
 void calculateAngles(sensors_event_t* a, float* roll, float* pitch) {
     // Calculate pitch (rotation around X-axis)
