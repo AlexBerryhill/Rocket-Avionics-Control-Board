@@ -122,7 +122,7 @@ void ProcessData::start(int core)
     xTaskCreatePinnedToCore(
         processDataStatic,  // Use a static function as the task function
         "processData",      // Task name
-        32768,               // Stack size
+        16384,               // Stack size
         this,               // Pass 'this' pointer as parameter
         1,                  // Priority
         NULL,               // Task handle
@@ -389,7 +389,6 @@ void ProcessData::SendRadioData(char *a, double *c, double *d, float *e, float *
     }
 
     // Set values to send
-    Serial.println("Entering SendRadioData");
     strncpy(myData.a, a, sizeof(myData.a) - 1);
     myData.a[sizeof(myData.a) - 1] = '\0'; // Ensure null termination
     myData.c = *c;
