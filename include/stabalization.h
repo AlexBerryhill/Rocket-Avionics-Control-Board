@@ -11,11 +11,12 @@ class Stabalization
     public:
         void start(int core);
     private:
-        static void stabalization(void* pvParameters);
+        void stabalization();
         static void calculateAngles(sensors_event_t* a, float* roll, float* pitch);
         void updateAngles();
         static void updateServoPitch(float pitchNow);
         static void updateServoYaw(float yawNow);
+        static void stabalizationWrapper(void* pvParameters);
 };
 
 #endif

@@ -12,8 +12,8 @@ void setup() {
   Stabalization stabalize;
 
   // Start the processing task
-  process.start(1);
-  stabalize.start(0);
+  process.start(0);
+  stabalize.start(1);
   
 }
 

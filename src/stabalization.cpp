@@ -26,23 +26,30 @@ float pitchBefore = 90.0; // Previous roll angle
 //  * @param core: The core number to run the task on
 //  ******************************************/
 void Stabalization::start(int core){ // remove parameter on arduino because of only one addressable core (there are two but it is hard to call)
-  myServoPitch.attach(35); // Attach pitch servo to pin 35
-  myServoYaw.attach(37); // Attach pitch servo to pin 37
-  myServoUp.attach(36); // Attach pitch servo to pin 36
+  myServoPitch.attach(24); // Attach pitch servo to pin 35
+  myServoYaw.attach(26); // Attach pitch servo to pin 37
+  myServoUp.attach(25); // Attach pitch servo to pin 36
   myServoDown.attach(38); // Attach pitch servo to pin 38
 
 
-  xTaskCreatePinnedToCore( //xTaskCreate on Arduino
-      stabalization,    // Task function (now matches TaskFunction_t signature)
-      "PrintCore1",      // Task name
-      1024,              // Stack size
-      NULL,              // Task input parameters
-      1,                 // Priority (higher number = higher priority)
-      NULL,              // Task handle (optional)
-      core                  // Pin to Core 0 (omit on Arduino)
-  ); 
+  Serial.println("Creating stabalization task...");
+        xTaskCreatePinnedToCore(
+            stabalizationWrapper,  // Static wrapper function
+            "StabalizationTask",   // Task name
+            8192,                  // Stack size (bytes)
+            this,                  // Pass 'this' as parameter
+            2,                     // Priority
+            NULL,                  // Task handle
+            core 
+        );
 }
 //////////////////////////////////////////////////////////////////////////////////////////
+
+// Static wrapper function for FreeRTOS
+void Stabalization::stabalizationWrapper(void* pvParameters) {
+  Stabalization* instance = static_cast<Stabalization*>(pvParameters);
+  instance->stabalization();  // Call the member function
+}
 
 // Function to calculate angle from accelerometer data
 void Stabalization::calculateAngles(sensors_event_t* a, float* roll, float* pitch) {
@@ -84,7 +91,7 @@ void Stabalization::updateAngles() {
  *       It will block indefinitely if the MPU-6050 sensor is not found.
  *       Ensure that the `updateServoPitch` and `updateServoYaw` methods are implemented to avoid linker errors.
  */
-void Stabalization::stabalization(void* pvParameters) {
+void Stabalization::stabalization() {
     Serial.println("Initializing I2C Sensors...");
     Wire.begin(SDA_PIN, SCL_PIN);
 
